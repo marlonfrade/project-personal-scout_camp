@@ -1,39 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Campground</title>
-  </head>
-  <body>
-    <!-- Não se esqueça de utilizar o pacote npm install method-override para criar uma atualização FAKE -->
-    <h1>Edit Campground</h1>
-    <!-- Lembrando que como estamos editando as informações do acampamento precisamos de um método PUT ou PATCH -->
-    <!-- Lembrando que para utilizar o method override precisamos que a variável method esteja corretamente declarada de acordo com o app.use que declaramos no nosso documento principal -->
-    <form action="/campgrounds/<%=camp._id%>?_method=PUT " method="POST">
-      <div>
-        <label for="title">Campground Title</label>
-        <!-- Dentro de cada input precisaremos ao invés de um placeholder um value para poder inserir os valores presentes dentro da informação do acampamento -->
-        <input
-          type="text"
-          name="campground[title]"
-          id="title"
-          value="<%=camp.title %> "
-        />
-      </div>
-      <div>
-        <label for="location">Campground Location</label>
-        <input
-          type="text"
-          name="campground[location]"
-          id="location"
-          value="<%= camp.location %> "
-        />
-      </div>
-      <button type="submit">Update Campground</button>
-    </form>
+<% layout('layouts/boilerplate.ejs') %>
+<!-- Não se esqueça de utilizar o pacote npm install method-override para criar uma atualização FAKE -->
+<h1>Edit Campground</h1>
+<!-- Lembrando que como estamos editando as informações do acampamento precisamos de um método PUT ou PATCH -->
+<!-- Lembrando que para utilizar o method override precisamos que a variável method esteja corretamente declarada de acordo com o app.use que declaramos no nosso documento principal -->
+<form action="/campgrounds/<%=camp._id%>?_method=PUT " method="POST">
+  <div>
+    <label for="title">Campground Title</label>
+    <!-- Dentro de cada input precisaremos ao invés de um placeholder um value para poder inserir os valores presentes dentro da informação do acampamento -->
+    <input
+      type="text"
+      name="campground[title]"
+      id="title"
+      value="<%=camp.title %> "
+    />
+  </div>
+  <div>
+    <label for="location">Campground Location</label>
+    <input
+      type="text"
+      name="campground[location]"
+      id="location"
+      value="<%= camp.location %> "
+    />
+  </div>
+  <button type="submit">Update Campground</button>
+</form>
 
-    <a href="/campgrounds/<%=camp._id %> ">Cancel</a>
-  </body>
-</html>
+<a href="/campgrounds/<%=camp._id %> ">Cancel</a>

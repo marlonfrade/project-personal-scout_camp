@@ -1,28 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Campgrounds</title>
-  </head>
-  <body>
-    <h1>All Campgrounds</h1>
+<% layout('layouts/boilerplate.ejs') %>
+<h1>All Campgrounds</h1>
 
-    <!-- Navegação -->
-    <a href="/campgrounds/new">Create a New Campground</a>
-    <a href="/">Back to Home</a>
+<!-- Navegação -->
+<a href="/campgrounds/new">Create a New Campground</a>
+<a href="/">Back to Home</a>
 
-    <ul>
-      <!-- Não esquecer de declarar no res.render a variável campgrounds pois caso contrários a mesma não será utilizada dentro do for para ser iterada.  -->
-      <% for (let campground of campgrounds){%>
-      <!-- Exemplo antes de utilizar o link para acesso aos acampamentos -->
-      <!-- <li><%=campground.title%></li> -->
-      <li>
-        <a href="/campgrounds/<%=campground._id%>"><%=campground.title%></a>
-      </li>
-      <!-- Após transformar num link, verificamos se está corretamente funcionando ao clicar e renderizar a página -->
-      <%}%>
-    </ul>
-  </body>
-</html>
+<ul>
+  <!-- Não esquecer de declarar no res.render a variável campgrounds pois caso contrários a mesma não será utilizada dentro do for para ser iterada.  -->
+  <% for (let campground of campgrounds){%>
+  <!-- Exemplo antes de utilizar o link para acesso aos acampamentos -->
+  <!-- <li><%=campground.title%></li> -->
+  <li>
+    <a href="/campgrounds/<%=campground._id%>"><%=campground.title%></a>
+  </li>
+  <!-- Após transformar num link, verificamos se está corretamente funcionando ao clicar e renderizar a página -->
+  <%}%>
+</ul>

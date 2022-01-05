@@ -2,6 +2,8 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+// npm install ejs-mate
+const ejsMate = require("ejs-mate");
 // npm install method-override
 const methodOverride = require("method-override");
 // Utilizamos o pacote override para criar uma atualização no fake no módulo de edição, porém precisamos utilizar esse pacote:
@@ -23,6 +25,7 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
