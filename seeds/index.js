@@ -31,10 +31,18 @@ const seedDB = async () => {
   // Faremos um for para poder criar 50 novos campgrounds utilizando como banco de dados as 1000 cidades cadastradas, por isso pegaremos um número aleatório até 1000
   for (let i = 0; i < 50; i++) {
     const random1000 = Math.floor(Math.random() * 1000);
+    const price = Math.floor(Math.random() * 20) + 10;
     const camp = new campground({
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       //   Utilizamos o banco de dados e a extração de um número aleatório do array para extrair um valor de cada um deles e criar nosso título para o acampamento.
       title: `${sample(descriptors)} ${sample(places)} `,
+      // Utilizamos a API do unplash para poder renderizar imagens aleatórias
+      image: "https://source.unsplash.com/collection/483251",
+      // Criamos uma descrição para os acampamentos utilizando lorem ipsum
+      description:
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat explicabo numquam voluptates unde dolorem nisi ipsam, error repellendus fugit tenetur ipsum necessitatibus illum omnis totam, placeat, quasi vero facere a!",
+      // Adicionamos um price com base na variável que definimos acima para renderizar um número aleatório
+      price,
     });
     await camp.save();
     // Com isso devemos ter 50 novos acampamentos com localização extraída do nosso banco de dados das 1000 cidades

@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const CampgroundSchema = new Schema({
   //Definindo os campos de inserção de dados:
   title: String,
-  price: String,
+  image: String,
+  price: Number,
   description: String,
   location: String,
 });
