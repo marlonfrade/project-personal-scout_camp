@@ -1,13 +1,40 @@
 <% layout('layouts/boilerplate.ejs') %>
-<h1><%=camp.title%></h1>
-<h2><%=camp.location%></h2>
-<img src="<%=camp.image%> " alt="campground" width="500" height="500" />
-<p><%=camp.description%></p>
 
-<a href="/campgrounds">Back to Campgrounds</a>
-<a href="/campground/<%=camp._id%>/edit ">Edit Campground</a>
-<!-- Para deletar um acampamento, utilizaremos um método POST porém com nosso pacote override podemos criar um DELETE fake -->
-<!-- Esse delete precisa receber o ID e o método fake que iremos utilizar, conforme abaixo -->
-<form action="/campgrounds/<%=camp._id%>?_method=DELETE" method="POST">
-  <button type="submit">Delete Campground</button>
-</form>
+<div class="row">
+  <div class="col-6 offset-3">
+    <div class="card">
+      <img
+        src="<%=camp.image%>"
+        class="card-img-top"
+        alt="campground"
+        width="500"
+        height="500"
+      />
+      <div class="card-body">
+        <h5 class="card-title"><%=camp.title%></h5>
+        <h5 class="card-title text-muted"><%=camp.location%></h5>
+        <p class="card-text"><%=camp.description%></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">$ <%=camp.price%>/ night</li>
+      </ul>
+      <div class="card-body">
+        <a href="/campground/<%=camp._id%>/edit" class="card-link btn btn-info"
+          >Edit Campground</a
+        >
+        <form
+          class="d-inline"
+          action="/campgrounds/<%=camp._id%>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-danger" type="submit">
+            Delete Campground
+          </button>
+        </form>
+      </div>
+      <div class="card-footer">
+        <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,25 +1,74 @@
 <% layout('layouts/boilerplate.ejs') %>
-<h1>New Campground</h1>
-<form action="/campgrounds" method="POST">
-  <div>
-    <label for="title">Campground Title</label>
-    <input
-      type="text"
-      name="campground[title]"
-      id="title"
-      placeholder="Name your Campground"
-    />
-  </div>
-  <div>
-    <label for="location">Campground Location</label>
-    <input
-      type="text"
-      name="campground[location]"
-      id="location"
-      placeholder="Wheres is your Campground?"
-    />
-  </div>
-  <button type="submit">Add Campground</button>
-</form>
 
-<a href="/campgrounds">Cancel</a>
+<div class="row">
+  <h1 class="text-center">New Campground</h1>
+  <div class="col-6 offset-3">
+    <form action="/campgrounds" method="POST">
+      <div class="mb-3">
+        <label class="form-label" for="title">Campground Title</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[title]"
+          id="title"
+          placeholder="Name your Campground"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="location">Campground Location</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[location]"
+          id="location"
+          placeholder="Wheres is your Campground?"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description"
+          >Campground Description</label
+        >
+        <textarea
+          class="form-control"
+          type="text"
+          name="campground[description]"
+          id="description"
+          placeholder="Tell us about your campground"
+        ></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="price">Campground Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input
+            type="text"
+            class="form-control"
+            name="campground[price]"
+            id="price"
+            placeholder="0.00"
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="image">Campground Image URL</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[image]"
+          id="location"
+          placeholder="Paste your Image URL"
+        />
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-success" type="submit">Add Campground</button>
+      </div>
+    </form>
+
+    <a href="/campgrounds">Cancel</a>
+  </div>
+</div>
