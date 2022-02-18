@@ -17,6 +17,7 @@ const methodOverride = require("method-override");
 // Utilizamos o pacote override para criar uma atualização no fake no módulo de edição, porém precisamos utilizar esse pacote:
 // Conectando o módulo campground
 const campground = require("./models/campground");
+const review = require("./models/review");
 
 // Conexão com o Mongo
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
@@ -161,6 +162,19 @@ app.delete(
     // Podemos procurar esse ID e deletar ele ou se tivermos muitas informações sobre o acampamento primeiro teríamos que filtrar essas informações, tratar elas para somente depois podermos exclui-la, porém estamos aplicando o CRUD básico e por enquanto apenas o delete irá funcionar corretamente
     await campground.findByIdAndDelete(id);
     res.redirect("/campgrounds");
+  })
+);
+
+// Criando uma rota para o review, onde utilizaremos o id do campground para acessar o review e adicionar ao campground especifico a avaliação
+app.post(
+  "/campgrounds/:id/reviews",
+  catchAsync(async (req, res) => {
+    // Verifica se está funcionando
+    // res.send("You Made It!");
+    const campground = await campground.findById(req.params.id);
+    // Antes de criar um review function para implementar a avaliação do acampamento, precisa fazer o requerimento do review schema criado dentro da folder models
+    // criando um novo schema no review utilizando o conteúdo inserido no body do acampamento
+    const review = new review(req.body.review);
   })
 );
 

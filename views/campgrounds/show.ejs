@@ -37,7 +37,12 @@
       </div>
     </div>
     <h2 class="mt-4 mb-4">Tell Us about your Experience</h2>
-    <form action="" class="mb-3">
+    <!-- Action do form referenciando ao app.post dessa rota no arquivo app.js -->
+    <form
+      action="/campgrounds/<%=camp._id%>/reviews"
+      method="POST"
+      class="mb-3"
+    >
       <div class="mb-3">
         <label class="form-label" for="rating">Rating</label>
         <input
