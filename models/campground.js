@@ -8,6 +8,13 @@ const CampgroundSchema = new Schema({
   price: Number,
   description: String,
   location: String,
+  // Após a construção do arquivo review.js, utilizaremos ele dentro do nosso schema na relação one-to-more
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 //Exportando o módulo para um modelo:
