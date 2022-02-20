@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 // Depois de instalar o package JOI npm i joi
 // const Joi = require("joi");
-// Requisitando o Schema que criamos dentro do file schemas.js
-const { campgroundSchema } = require("./schemas.js");
+// Requisitando os Schemas que criamos dentro do file schemas.js
+const { campgroundSchema, reviewSchema } = require("./schemas.js");
 //requisitando a pasta utils com os construtores de erros
 const catchAsync = require("./utils/catchAsync");
 // Após validar a rota 404 e implementar a classe de erros, podemos utilizar essa para poder inserir.
@@ -17,7 +17,7 @@ const methodOverride = require("method-override");
 // Utilizamos o pacote override para criar uma atualização no fake no módulo de edição, porém precisamos utilizar esse pacote:
 // Conectando o módulo campground
 const campground = require("./models/campground");
-const review = require("./models/review");
+const Review = require("./models/review");
 
 // Conexão com o Mongo
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
@@ -59,6 +59,22 @@ const validateCampground = (req, res, next) => {
   // Com o console.log podemos ver o resultado aplicando testes direto no postman, e assim verificando os validadores por parte do JOI que definimos dentro do schema.
   // if (!req.body.campground)
   //   throw new ExpressError("Invalid Campground Data", 400);
+};
+
+// Criando um segundo middleware conforme o middleware acima para validar a rota da avaliação do acampamento, utilizando o arquivo schemas.js com JOI
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
+  // Podemos dar um console.log no error para poder ver dentro do terminal se estamos de fato recebendo esse erro que estamos condicionando no if abaixo
+  console.log(error);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+  // Não esqueça de verificar se no schemas.js temos o modulo do reviewSchema como required, pois precisamos dele para testar no postman,
+  // Ao passar uma HTTP request como POST para a url /camp../id../reviews esperamos o resultado "review is required" para o body sem nenhuma informação
+  // Depois inserindo o review[rating] e review[body] no body da request, esperamos que não tenha erro a ser apresentado
 };
 
 // Acessa a página home
@@ -116,7 +132,17 @@ app.get(
   "/campgrounds/:id",
   catchAsync(async (req, res) => {
     // Definimos uma variável para apresentar o conteúdo do acampamento corretamente, após verificar que a página está sendo renderizada corretamente.
-    const camp = await campground.findById(req.params.id);
+    // Depois que definimos nosso middleware para criar avaliações do acampamento, podemos utilizar ele para popular nosso acampamento utilizando o id
+    // E criar novas avaliações a serem renderizadas para o usuário
+    const camp = await campground.findById(req.params.id).populate("reviews");
+    // Daremos um console no campground para ver dentro do banco de dados as avaliações criadas
+    // Após inserir o console.log abaixo confirmar ao atualizar a página que recebemos as informações no terminal
+    // Das avaliações criadas dentro do acampamento
+    // console.log(camp);
+    // Depois de verificar e obter o retorno esperado, podemos dentro do arquivo show.ejs criar um loop dentro dessas avaliações para poder
+    // visualizar elas dentro de cada acampamento selecionado,
+    // podendo adicionar funções posteriormente para o usuário que criou o perfil poder remover a avaliação que ele adicionou
+
     // Precisaremos utilizar o id para acessar, mas começamos renderizando a página de visualização do acampamento
     res.render("campgrounds/show", { camp });
     // Cria a página de renderização e verifica se está funcionando através de um fake id
@@ -168,13 +194,19 @@ app.delete(
 // Criando uma rota para o review, onde utilizaremos o id do campground para acessar o review e adicionar ao campground especifico a avaliação
 app.post(
   "/campgrounds/:id/reviews",
+  validateReview,
   catchAsync(async (req, res) => {
     // Verifica se está funcionando
     // res.send("You Made It!");
-    const campground = await campground.findById(req.params.id);
+    const camp = await campground.findById(req.params.id);
     // Antes de criar um review function para implementar a avaliação do acampamento, precisa fazer o requerimento do review schema criado dentro da folder models
     // criando um novo schema no review utilizando o conteúdo inserido no body do acampamento
-    const review = new review(req.body.review);
+    const review = new Review(req.body.review);
+    camp.reviews.push(review);
+    await review.save();
+    await camp.save();
+    // redireciona o usuário para a tela do acampamento avaliado
+    res.redirect(`/campgrounds/${camp._id}`);
   })
 );
 
