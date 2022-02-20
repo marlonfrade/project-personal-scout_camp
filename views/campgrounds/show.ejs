@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate.ejs') %>
 
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-6 mb-3">
     <div class="card">
       <img
         src="<%=camp.image%>"
@@ -32,11 +32,12 @@
           </button>
         </form>
       </div>
-      <div class="card-footer">
-        <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
-      </div>
+      <div class="card-footer text-muted">2 days ago</div>
+      <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
     </div>
-    <h2 class="mt-4 mb-4">Tell Us about your Experience</h2>
+  </div>
+  <div class="col-6">
+    <h2 class="mt-4 mb-4">Tell Us About Your Experience</h2>
     <!-- Action do form referenciando ao app.post dessa rota no arquivo app.js -->
     <!-- class validated-form do arquivo boilerplate para apresentar os erros ao submeter um formulário com campos vazios -->
     <form
@@ -71,11 +72,13 @@
       <button class="btn btn-success">Send</button>
     </form>
     <% for(let review of camp.reviews){ %>
-    <div class="mb-3">
-      <p>Rating: <%=review.rating%></p>
-      <p>Review: <%=review.body%></p>
-      <!-- Após criar a visualização das avaliações dos acampamentos, lembrar de excluir as avaliações vazias criadas -->
-      <!-- Para remover, acessar o mongo com o comando db.reviews.deleteMany({}) -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Rating: <%=review.rating%></h5>
+        <p class="card-text">Review: <%=review.body%></p>
+        <!-- Após criar a visualização das avaliações dos acampamentos, lembrar de excluir as avaliações vazias criadas -->
+        <!-- Para remover, acessar o mongo com o comando db.reviews.deleteMany({}) -->
+      </div>
     </div>
     <% } %>
   </div>

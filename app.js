@@ -210,6 +210,8 @@ app.post(
   })
 );
 
+// Criando uma rota para remover as avaliações dos acampamentos
+
 // Criando uma rota teste para validarmos uma rota 404, utilizando o app.all que recebe todas as requests feitas dentro da aplicação
 app.all("*", (req, res, next) => {
   // res.send("404!!");
