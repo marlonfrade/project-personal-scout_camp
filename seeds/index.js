@@ -56,3 +56,4 @@ const seedDB = async () => {
 seedDB().then(() => {
   mongoose.connection.close();
 });
+// Função para auxiliar a alimentar o banco de dados.
