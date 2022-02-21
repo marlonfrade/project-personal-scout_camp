@@ -211,6 +211,24 @@ app.post(
 );
 
 // Criando uma rota para remover as avaliações dos acampamentos
+// Utilizaremos o id do acampamento, seguido da rota da avaliação e o id da avaliação que deseja remover para poder acessar cada avaliação independentemente
+app.delete(
+  "/campgrounds/:id/reviews/:reviewId",
+  catchAsync(async (req, res) => {
+    // Teste para validar a rota
+    // res.send("DELETE");
+
+    // Primeiro passo é desestruturar o id do acampamento com o id do review desse acampamento
+    const { id, reviewId } = req.params;
+    // Utilizamos o comando abaixo para poder selecionar o acampamento selecionado e filtrar dentro do array onde está o review selecionado
+    // Para isso utilizaremos uma feature do mongo chamado pull
+    await campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    // Utilizamos o comando abaixo para remover o review com base no id do parâmetro
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/campgrounds/${id}`);
+    // Após verificar se está removendo corretamente, precisaremos implantar que ao usuário remover um acampamento, toda a informação sobre avaliações seja removida também do banco de dados
+  })
+);
 
 // Criando uma rota teste para validarmos uma rota 404, utilizando o app.all que recebe todas as requests feitas dentro da aplicação
 app.all("*", (req, res, next) => {

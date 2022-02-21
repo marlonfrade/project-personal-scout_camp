@@ -78,6 +78,15 @@
         <p class="card-text">Review: <%=review.body%></p>
         <!-- Após criar a visualização das avaliações dos acampamentos, lembrar de excluir as avaliações vazias criadas -->
         <!-- Para remover, acessar o mongo com o comando db.reviews.deleteMany({}) -->
+
+        <!-- Criando um DELETE request para remover a avaliação criada -->
+        <form
+          action="/campgrounds/<%=camp._id%>/reviews/<%=review._id%>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-sm btn-danger">Remove</button>
+          <!-- Depois de adicionar o botão e verificar se a resposta foi enviada, podemos voltar ao app.js para configurar a função de remover uma avaliação-->
+        </form>
       </div>
     </div>
     <% } %>
