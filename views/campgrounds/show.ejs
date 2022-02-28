@@ -14,10 +14,14 @@
         <h5 class="card-title"><%=camp.title%></h5>
         <h5 class="card-title text-muted"><%=camp.location%></h5>
         <p class="card-text"><%=camp.description%></p>
+        <h5 class="card-title text-muted">
+          Submitted by <%=camp.author.username%>
+        </h5>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">$ <%=camp.price%>/ night</li>
       </ul>
+      <% if(currentUser && camp.author.equals(currentUser._id)){ %>
       <div class="card-body">
         <a href="/campgrounds/<%=camp._id%>/edit" class="card-link btn btn-info"
           >Edit Campground</a
@@ -32,6 +36,7 @@
           </button>
         </form>
       </div>
+      <% } %>
       <div class="card-footer text-muted">2 days ago</div>
       <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
     </div>

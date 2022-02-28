@@ -76,6 +76,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // Criaremos um middleware para configurar toda a parte de informação que o flash for enviar ao usuário
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();

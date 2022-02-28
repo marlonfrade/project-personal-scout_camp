@@ -9,6 +9,8 @@ const ExpressError = require("../utils/ExpressError");
 const campground = require("../models/campground");
 // Requisitando os Schemas que criamos dentro do file schemas.js
 const { campgroundSchema } = require("../schemas.js");
+// Requisitando o middleware para validar se o usuário fez o login
+const { isLoggedIn } = require("../middleware");
 
 // Criando um middleware para validar algumas rotas, como ele nao sera aplicado em todas as rotas criamos uma função para ser chamada dentro das rotas selecionadas.
 const validateCampground = (req, res, next) => {
@@ -28,6 +30,8 @@ const validateCampground = (req, res, next) => {
   //   throw new ExpressError("Invalid Campground Data", 400);
 };
 
+const isAuthor = async (req, res, next) => {};
+
 // Criaremos uma rota para acessar a visualização dos campgrounds, para aguardar precisaremos de uma função assíncrona
 router.get(
   "/",
@@ -40,7 +44,7 @@ router.get(
 );
 
 // Criar uma rota para criação de um novo acampamento(precisamos que essa rota seja executada antes do id, pois caso contrário a mesma irá tratar a rota como se fosse um id de um acampamento)
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   // Precisaremos de um formulário para realizar nosso método post
   res.render("campgrounds/new");
 });
@@ -63,10 +67,12 @@ router.get("/new", (req, res) => {
 // Mesmo codigo acima ja com a parte do middleware para lidar com o usuario inserindo uma string no campo de preço.
 router.post(
   "/",
+  isLoggedIn,
   validateCampground,
   //Depois que criamos a nossa classe de erros, implementamos ela dentro de todas as funções assíncronas dentro do código
   catchAsync(async (req, res, next) => {
     const camp = new campground(req.body.campground);
+    camp.author = req.user._id;
     await camp.save();
     req.flash("success", "Successfully Made a New Campground!");
     // No exemplo acima levamos o usuário de volta a página inicial, porém podemos levar ele direto ao acampamento que ele criou
@@ -77,11 +83,15 @@ router.post(
 // Utilizaremos uma rota para acessar o campground e utilizar o ID dele para exibir maiores informações sobre o acampamento
 router.get(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     // Definimos uma variável para apresentar o conteúdo do acampamento corretamente, após verificar que a página está sendo renderizada corretamente.
     // Depois que definimos nosso middleware para criar avaliações do acampamento, podemos utilizar ele para popular nosso acampamento utilizando o id
     // E criar novas avaliações a serem renderizadas para o usuário
-    const camp = await campground.findById(req.params.id).populate("reviews");
+    const camp = await campground
+      .findById(req.params.id)
+      .populate("reviews")
+      .populate("author");
     // Daremos um console no campground para ver dentro do banco de dados as avaliações criadas
     // Após inserir o console.log abaixo confirmar ao atualizar a página que recebemos as informações no terminal
     // Das avaliações criadas dentro do acampamento
@@ -106,13 +116,19 @@ router.get(
 // Criar uma rota para edição dos acampamentos
 router.get(
   "/:id/edit",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     // Precisaremos encontrar o id que está sendo clicado e então renderizar uma página com um formulário onde o usuário poderá editar o conteúdo do acampamento
     // Para isso basicamente copiamos o que fizemos na rota acima
-    const camp = await campground.findById(req.params.id);
+    const { id } = req.params;
+    const camp = await campground.findById(id);
     if (!camp) {
       req.flash("error", "Sorry, Campground Not Found!");
       return res.redirect("/campgrounds");
+    }
+    if (!camp.author.equals(req.user._id)) {
+      req.flash("error", "You need Permission to do That!");
+      return res.redirect(`/campgrounds/${id}`);
     }
     res.render("campgrounds/edit", { camp });
   })
@@ -121,11 +137,13 @@ router.get(
 // Agora que instalamos e utilizamos no nosso código o pacote npm install method-override podemos criar uma rota put como abaixo
 router.put(
   "/:id",
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     // res.send("IT WORKED");
     // O exemplo acima é para validar que nosso formulário de edição está funcionando corretamente, após validar isso partimos para a atualização do acampamento
     const { id } = req.params;
+
     // Podemos desestruturar a função conforme acima
     const camp = await campground.findByIdAndUpdate(id, {
       ...req.body.campground,
@@ -139,6 +157,7 @@ router.put(
 // Criando uma rota para o usuário poder deletar um acampamento
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     // Precisamos pegar o ID do request
     const { id } = req.params;
