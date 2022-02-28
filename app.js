@@ -16,9 +16,17 @@ const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 // npm install method-override
 const methodOverride = require("method-override");
+
+// npm i passport passport-local passport-local-mongoose
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+// Requisitando o modelo do usuario
+const User = require("./models/user");
+
+const userRoutes = require("./routes/users");
 // Utilizamos o pacote override para criar uma atualização no fake no módulo de edição, porém precisamos utilizar esse pacote:
-const campgrounds = require("./routes/campground");
-const reviews = require("./routes/reviews");
+const campgroundsRoutes = require("./routes/campground");
+const reviewsRoutes = require("./routes/reviews");
 
 // Conexão com o Mongo
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
@@ -58,6 +66,14 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+// Initialize the passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Criaremos um middleware para configurar toda a parte de informação que o flash for enviar ao usuário
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
@@ -65,8 +81,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/reviews", reviews);
+// Criando uma rota fake para registar um usuario
+// app.get("/fakeUser", async (req, res) => {
+//   const user = new User({ email: "teste@gmail.com", username: "teste" });
+//   const newUser = await User.register(user, "teste");
+//   res.send(newUser);
+// });
+
+app.use("/", userRoutes);
+app.use("/campgrounds", campgroundsRoutes);
+app.use("/campgrounds/:id/reviews", reviewsRoutes);
 
 // Acessa a página home
 app.get("/", (req, res) => {

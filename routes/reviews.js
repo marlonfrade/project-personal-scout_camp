@@ -17,7 +17,7 @@ const catchAsync = require("../utils/catchAsync");
 const validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
   // Podemos dar um console.log no error para poder ver dentro do terminal se estamos de fato recebendo esse erro que estamos condicionando no if abaixo
-  console.log(error);
+  // console.log(error);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
