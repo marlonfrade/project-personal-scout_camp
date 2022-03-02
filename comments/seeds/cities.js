@@ -1,4 +1,4 @@
-// Cities DataBase to fill the Campgrounds
+// Conjunto de cidades para utilizar como banco de dados.
 
 module.exports = [
   {

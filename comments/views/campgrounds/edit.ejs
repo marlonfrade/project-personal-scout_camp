@@ -1,0 +1,85 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+<div class="row">
+  <h1 class="text-center">Edit Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campgrounds/<%=camp._id%>?_method=PUT "
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="title">Campground Title</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[title]"
+          id="title"
+          value="<%=camp.title %> "
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="location">Campground Location</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[location]"
+          id="location"
+          value="<%= camp.location %> "
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description"
+          >Campground Description</label
+        >
+        <textarea
+          class="form-control"
+          type="text"
+          name="campground[description]"
+          id="description"
+          required
+        >
+        <%=camp.description%>
+        </textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="price">Campground Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input
+            type="text"
+            class="form-control"
+            name="campground[price]"
+            id="price"
+            value="<%= camp.price %> "
+            required
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="image">Campground Image URL</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[image]"
+          id="location"
+          value="<%= camp.image %> "
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-success" type="submit">Edit Campground</button>
+      </div>
+    </form>
+
+    <a class="btn btn-danger" href="/campgrounds">Cancel</a>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+<div class="row">
+  <h1 class="text-center">New Campground</h1>
+  <div class="col-6 offset-3">
+    <form action="/campgrounds" method="POST" novalidate class="validated-form">
+      <div class="mb-3">
+        <label class="form-label" for="title">Campground Title</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[title]"
+          id="title"
+          placeholder="Name your Campground"
+          required
+        />
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="location">Campground Location</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[location]"
+          id="location"
+          placeholder="Wheres is your Campground?"
+          required
+        />
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description"
+          >Campground Description</label
+        >
+        <textarea
+          class="form-control"
+          type="text"
+          name="campground[description]"
+          id="description"
+          placeholder="Tell us about your campground"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="price">Campground Price</label>
+        <div class="input-group">
+          <span class="input-group-text" id="price-label">$</span>
+          <input
+            type="text"
+            inputmode="numeric"
+            class="form-control"
+            name="campground[price]"
+            id="price"
+            placeholder="0.00"
+            required
+          />
+        </div>
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="image">Campground Image URL</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[image]"
+          id="location"
+          placeholder="Paste your Image URL"
+          required
+        />
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-success" type="submit">Add Campground</button>
+      </div>
+    </form>
+
+    <a href="/campgrounds">Cancel</a>
+  </div>
+</div>

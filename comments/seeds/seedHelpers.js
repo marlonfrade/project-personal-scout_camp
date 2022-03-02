@@ -1,4 +1,4 @@
-//Campgrounds Names DataBase to fill the campgrounds
+// Banco de dados para criar um novo campground utilizando o conjunto de nomes abaixo.
 
 module.exports.descriptors = [
   "Forest",

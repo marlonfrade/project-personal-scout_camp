@@ -1,9 +1,7 @@
-// Required Stuff
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require("passport-local-mongoose");
 
-// Declaring the values of the user
 const UserSchema = new Schema({
   email: {
     type: String,

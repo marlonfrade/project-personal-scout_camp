@@ -1,0 +1,105 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+<div class="row">
+  <div class="col-6 mb-3">
+    <div class="card">
+      <img
+        src="<%=camp.image%>"
+        class="card-img-top"
+        alt="campground"
+        width="500"
+        height="500"
+      />
+      <div class="card-body">
+        <h5 class="card-title"><%=camp.title%></h5>
+        <h5 class="card-title text-muted"><%=camp.location%></h5>
+        <p class="card-text"><%=camp.description%></p>
+        <h5 class="card-title text-muted">
+          Submitted by <%=camp.author.username%>
+        </h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">$ <%=camp.price%>/ night</li>
+      </ul>
+      <% if(currentUser && camp.author.equals(currentUser._id)){ %>
+      <div class="card-body">
+        <a href="/campgrounds/<%=camp._id%>/edit" class="card-link btn btn-info"
+          >Edit Campground</a
+        >
+        <form
+          class="d-inline"
+          action="/campgrounds/<%=camp._id%>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-danger" type="submit">
+            Delete Campground
+          </button>
+        </form>
+      </div>
+      <% } %>
+      <div class="card-footer text-muted">2 days ago</div>
+      <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
+    </div>
+  </div>
+  <div class="col-6">
+    <% if(currentUser){ %>
+    <h2 class="mt-4 mb-4">Tell Us About Your Experience</h2>
+    <!-- Action do form referenciando ao app.post dessa rota no arquivo app.js -->
+    <!-- class validated-form do arquivo boilerplate para apresentar os erros ao submeter um formulário com campos vazios -->
+    <form
+      action="/campgrounds/<%=camp._id%>/reviews"
+      method="POST"
+      novalidate
+      class="mb-3 validated-form"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="rating">Rating</label>
+        <input
+          type="range"
+          class="form-range"
+          min="1"
+          max="5"
+          name="review[rating]"
+          id="rating"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="body">Review:</label>
+        <textarea
+          class="form-control"
+          name="review[body]"
+          id="body"
+          cols="30"
+          rows="3"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
+      <button class="btn btn-success">Send</button>
+    </form>
+    <% } %> <% for(let review of camp.reviews){ %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><%=review.author.username %></h5>
+        <h5 class="card-subtitle mb-2 text-muted">
+          Rating: <%=review.rating%>
+        </h5>
+        <p class="card-text">Review: <%=review.body%></p>
+        <!-- Após criar a visualização das avaliações dos acampamentos, lembrar de excluir as avaliações vazias criadas -->
+        <!-- Para remover, acessar o mongo com o comando db.reviews.deleteMany({}) -->
+
+        <!-- Criando um DELETE request para remover a avaliação criada -->
+        <% if(currentUser && review.author.equals(currentUser._id)){%>
+        <form
+          action="/campgrounds/<%=camp._id%>/reviews/<%=review._id%>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-sm btn-danger">Remove</button>
+          <!-- Depois de adicionar o botão e verificar se a resposta foi enviada, podemos voltar ao app.js para configurar a função de remover uma avaliação-->
+        </form>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>

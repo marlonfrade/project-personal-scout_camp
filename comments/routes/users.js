@@ -1,17 +1,13 @@
-// Required Stuff
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
-// npm i passport
 const passport = require("passport");
 
-// Register Form Page Route
 router.get("/register", (req, res) => {
   res.render("users/register");
 });
 
-// Register POST user
 router.post(
   "/register",
   catchAsync(async (req, res, next) => {
@@ -31,12 +27,11 @@ router.post(
   })
 );
 
-// Login Form Page
 router.get("/login", (req, res) => {
   res.render("users/login");
 });
+// alterado
 
-// POST route to Login the User
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -52,7 +47,6 @@ router.post(
   }
 );
 
-// LogOut the User
 router.get("/logout", (req, res) => {
   req.logOut();
   req.flash("success", "Goodbye!");
