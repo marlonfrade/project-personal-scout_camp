@@ -3,34 +3,11 @@ const router = express.Router();
 
 //requisitando a pasta utils com os construtores de erros
 const catchAsync = require("../utils/catchAsync");
-// Após validar a rota 404 e implementar a classe de erros, podemos utilizar essa para poder inserir.
-const ExpressError = require("../utils/ExpressError");
 // Conectando o módulo campground
 const campground = require("../models/campground");
-// Requisitando os Schemas que criamos dentro do file schemas.js
-const { campgroundSchema } = require("../schemas.js");
+
 // Requisitando o middleware para validar se o usuário fez o login
-const { isLoggedIn } = require("../middleware");
-
-// Criando um middleware para validar algumas rotas, como ele nao sera aplicado em todas as rotas criamos uma função para ser chamada dentro das rotas selecionadas.
-const validateCampground = (req, res, next) => {
-  // O result retorna um array, entao precisamos desestruturar ele.
-  const { error } = campgroundSchema.validate(req.body);
-  // Criando conditionals para atender os tipos de erros.
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-  // Após validar os testes implementamos um middleware para realizar essa função que definimos apenas para a rota acima.
-  // console.log(result);
-  // Com o console.log podemos ver o resultado aplicando testes direto no postman, e assim verificando os validadores por parte do JOI que definimos dentro do schema.
-  // if (!req.body.campground)
-  //   throw new ExpressError("Invalid Campground Data", 400);
-};
-
-const isAuthor = async (req, res, next) => {};
+const { isLoggedIn, isAuthor, validateCampground } = require("../middleware");
 
 // Criaremos uma rota para acessar a visualização dos campgrounds, para aguardar precisaremos de uma função assíncrona
 router.get(
@@ -83,14 +60,18 @@ router.post(
 // Utilizaremos uma rota para acessar o campground e utilizar o ID dele para exibir maiores informações sobre o acampamento
 router.get(
   "/:id",
-  isLoggedIn,
   catchAsync(async (req, res) => {
     // Definimos uma variável para apresentar o conteúdo do acampamento corretamente, após verificar que a página está sendo renderizada corretamente.
     // Depois que definimos nosso middleware para criar avaliações do acampamento, podemos utilizar ele para popular nosso acampamento utilizando o id
     // E criar novas avaliações a serem renderizadas para o usuário
     const camp = await campground
       .findById(req.params.id)
-      .populate("reviews")
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+        },
+      })
       .populate("author");
     // Daremos um console no campground para ver dentro do banco de dados as avaliações criadas
     // Após inserir o console.log abaixo confirmar ao atualizar a página que recebemos as informações no terminal
@@ -117,6 +98,7 @@ router.get(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     // Precisaremos encontrar o id que está sendo clicado e então renderizar uma página com um formulário onde o usuário poderá editar o conteúdo do acampamento
     // Para isso basicamente copiamos o que fizemos na rota acima
@@ -126,10 +108,6 @@ router.get(
       req.flash("error", "Sorry, Campground Not Found!");
       return res.redirect("/campgrounds");
     }
-    if (!camp.author.equals(req.user._id)) {
-      req.flash("error", "You need Permission to do That!");
-      return res.redirect(`/campgrounds/${id}`);
-    }
     res.render("campgrounds/edit", { camp });
   })
 );
@@ -138,6 +116,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isAuthor,
   validateCampground,
   catchAsync(async (req, res) => {
     // res.send("IT WORKED");

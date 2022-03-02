@@ -33,7 +33,7 @@ const seedDB = async () => {
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 20) + 10;
     const camp = new campground({
-      author: "621cc2ce5c3803e5b5824858",
+      author: "621f2b982480dcaf99cea32a",
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       //   Utilizamos o banco de dados e a extração de um número aleatório do array para extrair um valor de cada um deles e criar nosso título para o acampamento.
       title: `${sample(descriptors)} ${sample(places)} `,

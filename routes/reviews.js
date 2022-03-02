@@ -4,34 +4,17 @@ const router = express.Router({ mergeParams: true });
 // Conectando o módulo campground
 const campground = require("../models/campground");
 const Review = require("../models/review");
-
-// Requisitando os Schemas que criamos dentro do file schemas.js
-const { reviewSchema } = require("../schemas.js");
+const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 
 // Após validar a rota 404 e implementar a classe de erros, podemos utilizar essa para poder inserir.
 const ExpressError = require("../utils/ExpressError");
 //requisitando a pasta utils com os construtores de erros
 const catchAsync = require("../utils/catchAsync");
 
-// Criando um segundo middleware conforme o middleware acima para validar a rota da avaliação do acampamento, utilizando o arquivo schemas.js com JOI
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  // Podemos dar um console.log no error para poder ver dentro do terminal se estamos de fato recebendo esse erro que estamos condicionando no if abaixo
-  // console.log(error);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-  // Não esqueça de verificar se no schemas.js temos o modulo do reviewSchema como required, pois precisamos dele para testar no postman,
-  // Ao passar uma HTTP request como POST para a url /camp../id../reviews esperamos o resultado "review is required" para o body sem nenhuma informação
-  // Depois inserindo o review[rating] e review[body] no body da request, esperamos que não tenha erro a ser apresentado
-};
-
 // Criando uma rota para o review, onde utilizaremos o id do campground para acessar o review e adicionar ao campground especifico a avaliação
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   catchAsync(async (req, res) => {
     // Verifica se está funcionando
@@ -40,6 +23,7 @@ router.post(
     // Antes de criar um review function para implementar a avaliação do acampamento, precisa fazer o requerimento do review schema criado dentro da folder models
     // criando um novo schema no review utilizando o conteúdo inserido no body do acampamento
     const review = new Review(req.body.review);
+    review.author = req.user._id;
     camp.reviews.push(review);
     await review.save();
     await camp.save();
@@ -53,6 +37,8 @@ router.post(
 // Utilizaremos o id do acampamento, seguido da rota da avaliação e o id da avaliação que deseja remover para poder acessar cada avaliação independentemente
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isReviewAuthor,
   catchAsync(async (req, res) => {
     // Teste para validar a rota
     // res.send("DELETE");
