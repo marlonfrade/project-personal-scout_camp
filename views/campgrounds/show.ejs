@@ -1,15 +1,45 @@
+<!-- Requiring the Boilerplate -->
 <% layout('layouts/boilerplate.ejs') %>
+<!-- Stars CSS -->
+<link rel="stylesheet" href="/styles/stars.css" />
 
 <div class="row">
   <div class="col-6 mb-3">
-    <div class="card">
-      <img
-        src="<%=camp.image%>"
-        class="card-img-top"
-        alt="campground"
-        width="500"
-        height="500"
-      />
+    <div
+      id="campgroundsCarousel"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-inner">
+        <% camp.images.forEach((img, i)=>{ %>
+        <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+          <img src="<%=img.url%>" class="d-block w-100 img-thumbnail" alt="" />
+        </div>
+        <% }) %>
+      </div>
+      <% if(camp.images.length>1){ %>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#campgroundsCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#campgroundsCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      <% } %>
+    </div>
+
+    <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title"><%=camp.title%></h5>
         <h5 class="card-title text-muted"><%=camp.location%></h5>
@@ -23,7 +53,7 @@
       </ul>
       <% if(currentUser && camp.author.equals(currentUser._id)){ %>
       <div class="card-body">
-        <a href="/campgrounds/<%=camp._id%>/edit" class="card-link btn btn-info"
+        <a href="/campgrounds/<%=camp._id%>/edit" class="btn btn-primary"
           >Edit Campground</a
         >
         <form
@@ -44,8 +74,7 @@
   <div class="col-6">
     <% if(currentUser){ %>
     <h2 class="mt-4 mb-4">Tell Us About Your Experience</h2>
-    <!-- Action do form referenciando ao app.post dessa rota no arquivo app.js -->
-    <!-- class validated-form do arquivo boilerplate para apresentar os erros ao submeter um formulário com campos vazios -->
+
     <form
       action="/campgrounds/<%=camp._id%>/reviews"
       method="POST"
@@ -53,18 +82,56 @@
       class="mb-3 validated-form"
     >
       <div class="mb-3">
-        <label class="form-label" for="rating">Rating</label>
-        <input
-          type="range"
-          class="form-range"
-          min="1"
-          max="5"
-          name="review[rating]"
-          id="rating"
-        />
+        <fieldset class="starability-basic">
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="review[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input
+            type="radio"
+            id="second-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="second-rate1" title="Terrible">1 star</label>
+          <input
+            type="radio"
+            id="second-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="second-rate2" title="Not good">2 stars</label>
+          <input
+            type="radio"
+            id="second-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="second-rate3" title="Average">3 stars</label>
+          <input
+            type="radio"
+            id="second-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="second-rate4" title="Very good">4 stars</label>
+          <input
+            type="radio"
+            id="second-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="second-rate5" title="Amazing">5 stars</label>
+        </fieldset>
       </div>
+
       <div class="mb-3">
-        <label class="form-label" for="body">Review:</label>
+        <label class="form-label" for="body">Review Text:</label>
         <textarea
           class="form-control"
           name="review[body]"
@@ -75,27 +142,24 @@
         ></textarea>
         <div class="valid-feedback">Looks Good!</div>
       </div>
+
       <button class="btn btn-success">Send</button>
     </form>
     <% } %> <% for(let review of camp.reviews){ %>
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title"><%=review.author.username %></h5>
-        <h5 class="card-subtitle mb-2 text-muted">
-          Rating: <%=review.rating%>
-        </h5>
-        <p class="card-text">Review: <%=review.body%></p>
-        <!-- Após criar a visualização das avaliações dos acampamentos, lembrar de excluir as avaliações vazias criadas -->
-        <!-- Para remover, acessar o mongo com o comando db.reviews.deleteMany({}) -->
+        <h5 class="card-text">Review:</h5>
+        <h6><%=review.body%></h6>
+        <p class="starability-result" data-rating="<%=review.rating%>"></p>
+        <p class="card-title text-muted">By <%=review.author.username %></p>
 
-        <!-- Criando um DELETE request para remover a avaliação criada -->
+        <!-- DELETE Request -->
         <% if(currentUser && review.author.equals(currentUser._id)){%>
         <form
           action="/campgrounds/<%=camp._id%>/reviews/<%=review._id%>?_method=DELETE"
           method="POST"
         >
           <button class="btn btn-sm btn-danger">Remove</button>
-          <!-- Depois de adicionar o botão e verificar se a resposta foi enviada, podemos voltar ao app.js para configurar a função de remover uma avaliação-->
         </form>
         <% } %>
       </div>

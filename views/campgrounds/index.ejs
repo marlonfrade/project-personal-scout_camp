@@ -1,23 +1,20 @@
 <% layout('layouts/boilerplate.ejs') %>
 <h1 class="mb-5">All Campgrounds</h1>
 
-<!-- Navegação -->
+<!-- Nav -->
 <a class="btn btn-success mb-5" href="/campgrounds/new"
   >Create a New Campground</a
 >
 <a class="btn btn-primary mb-5" href="/">Back to Home</a>
 
-<!-- Não esquecer de declarar no res.render a variável campgrounds pois caso contrários a mesma não será utilizada dentro do for para ser iterada.  -->
 <% for (let campground of campgrounds){%>
-<!-- Exemplo antes de utilizar o link para acesso aos acampamentos -->
-<!-- <li><%=campground.title%></li> -->
 <div class="card mb-3">
   <div class="row">
     <div class="col-md-4">
       <img
-        class="img-fluid"
+        class="img-fluid img-thumbnail"
         alt="campground"
-        src="<%=campground.image %> "
+        src="<%=campground.images[0].url%> "
         width="500"
         height="500"
       />
@@ -35,5 +32,4 @@
   </div>
 </div>
 
-<!-- Após transformar num link, verificamos se está corretamente funcionando ao clicar e renderizar a página -->
 <%}%>

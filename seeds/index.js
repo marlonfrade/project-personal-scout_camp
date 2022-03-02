@@ -29,15 +29,28 @@ const seedDB = async () => {
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 20) + 10;
     const camp = new campground({
-      author: "621f2b982480dcaf99cea32a",
+      author: "621cc2ce5c3803e5b5824858",
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)} `,
-      // UnSplash API to get the images DB from a collection and fill the campgrounds images
-      image: "https://source.unsplash.com/collection/483251",
       // Lorem Ipsum to description
       description:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat explicabo numquam voluptates unde dolorem nisi ipsam, error repellendus fugit tenetur ipsum necessitatibus illum omnis totam, placeat, quasi vero facere a!",
+        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat explicabo numquam voluptates unde dolorem nisi ipsam,",
       price,
+      // Using the file input to get the path url and add
+      images: [
+        {
+          url: "https://res.cloudinary.com/marlonmelo/image/upload/v1646247986/YelpCamp/siubdsmkz0efoybjtlyg.jpg",
+          filename: "YelpCamp/siubdsmkz0efoybjtlyg",
+        },
+        {
+          url: "https://res.cloudinary.com/marlonmelo/image/upload/v1646247988/YelpCamp/ee2bo6adsjxna8wzo5to.jpg",
+          filename: "YelpCamp/ee2bo6adsjxna8wzo5to",
+        },
+        {
+          url: "https://res.cloudinary.com/marlonmelo/image/upload/v1646247989/YelpCamp/ofb4ksaluuiblj3zmtrp.jpg",
+          filename: "YelpCamp/ofb4ksaluuiblj3zmtrp",
+        },
+      ],
     });
     await camp.save();
     // Await to save it, now we have 50 camps to be added in our database
