@@ -35,7 +35,7 @@ CLOUDINARY_SECRET = <secret>
 
 ```
 
-Run `mongod` in another terminal and `node app.js` in the terminal with the project.
+Run `mongod` in another terminal and `npm start` in the terminal with the project.
 
 Then go to [localhost:3000](http://localhost:3000/).
 
