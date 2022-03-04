@@ -11,6 +11,7 @@
 <div class="card mb-3">
   <div class="row">
     <div class="col-md-4">
+      <% if(campground.images.length) {%>
       <img
         class="img-fluid img-thumbnail"
         alt="campground"
@@ -18,6 +19,16 @@
         width="500"
         height="500"
       />
+      <% } else {%>
+
+      <img
+        class="img-fluid img-thumbnail"
+        alt="campground"
+        src=" https://res.cloudinary.com/marlonmelo/image/upload/v1646247986/YelpCamp/siubdsmkz0efoybjtlyg.jpg"
+        width="500"
+        height="500"
+      />
+      <% } %>
     </div>
     <div class="col-md-8">
       <div class="card-body">

@@ -3,6 +3,10 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
+
+// Middleware Require from middleware.js
+const { isLoggedIn } = require("../middleware");
+
 // npm i passport
 const passport = require("passport");
 // Controllers
@@ -12,7 +16,7 @@ const users = require("../controllers/users");
 router.get("/register", users.renderRegister);
 
 // Register POST user
-router.post("/register", catchAsync(users.register));
+router.post("/register", isLoggedIn, catchAsync(users.register));
 
 // Login Form Page
 router.get("/login", users.renderLogin);

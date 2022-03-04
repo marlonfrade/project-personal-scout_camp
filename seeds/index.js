@@ -38,6 +38,8 @@ const seedDB = async () => {
       description:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat explicabo numquam voluptates unde dolorem nisi ipsam,",
       price,
+      // Sending a generic location to seeds files to get a map and don't break the system
+      geometry: { type: "Point", coordinates: [-43.2094, -22.911] },
       // Using the file input to get the path url and add
       images: [
         {

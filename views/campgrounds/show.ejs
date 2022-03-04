@@ -104,6 +104,7 @@
     </div>
   </div>
   <div class="col-6">
+    <div id="map" style="width: 400px; height: 300px"></div>
     <% if(currentUser){ %>
     <h2 class="mt-4 mb-4">Tell Us About Your Experience</h2>
 
@@ -177,7 +178,7 @@
 
       <button class="btn btn-success">Send</button>
     </form>
-    <% } %> <% for(let review of camp.reviews){ %>
+    <% } %><% for(let review of camp.reviews){ %>
     <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-text">Review:</h5>
@@ -213,3 +214,13 @@
     <% } %>
   </div>
 </div>
+
+<!-- Script to config the access token for MapBox -->
+<script>
+  const mapToken = "<%-process.env.MAPBOX_TOKEN%>";
+  const camp = <%-JSON.stringify(camp)%>;
+</script>
+<!-- Needs to be rendered before the script below -->
+
+<!-- Scripts to run the Map File JS -->
+<script src="/js/showPageMap.js"></script>
