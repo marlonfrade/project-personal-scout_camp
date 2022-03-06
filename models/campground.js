@@ -15,35 +15,48 @@ ImageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_200");
 });
 
-const CampgroundSchema = new Schema({
-  //Inserting the fields the campground requires
-  title: String,
-  geometry: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      required: true,
+const opts = { toJSON: { virtuals: true } };
+
+const CampgroundSchema = new Schema(
+  {
+    //Inserting the fields the campground requires
+    title: String,
+    geometry: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
     },
-    coordinates: {
-      type: [Number],
-      required: true,
-    },
-  },
-  price: Number,
-  description: String,
-  images: [ImageSchema],
-  location: String,
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  // Reviews Schema
-  reviews: [
-    {
+    price: Number,
+    description: String,
+    images: [ImageSchema],
+    location: String,
+    author: {
       type: Schema.Types.ObjectId,
-      ref: "Review",
+      ref: "User",
     },
-  ],
+    // Reviews Schema
+    reviews: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
+  },
+  opts
+);
+
+// Using the virtual again for popup maps, requires a get with a callback func
+CampgroundSchema.virtual("properties.popUpMarkup").get(function () {
+  // Then we use replace to /uploads
+  return `<a href="/campgrounds/${this.id}">${this.title}</a>
+    <p>${this.description.substring(0, 50)}...</p>
+  `;
 });
 
 // Removing All the camps before load it.

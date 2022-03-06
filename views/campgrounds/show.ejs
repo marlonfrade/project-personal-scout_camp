@@ -2,216 +2,217 @@
 <% layout('layouts/boilerplate.ejs') %>
 <!-- Stars CSS -->
 <link rel="stylesheet" href="/styles/stars.css" />
-
-<div class="row">
-  <div class="col-6 mb-3">
-    <div
-      id="campgroundsCarousel"
-      class="carousel slide"
-      data-bs-ride="carousel"
-    >
-      <div class="carousel-inner">
-        <% camp.images.forEach((img, i)=>{ %>
-        <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-          <img
-            src="<%=img.url%>"
-            class="d-block w-100 img-thumbnail"
-            style="max-width: 700px; max-height: 400px"
-            alt=""
-          />
-        </div>
-        <% }) %>
-      </div>
-      <% if(camp.images.length>1){ %>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#campgroundsCarousel"
-        data-bs-slide="prev"
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6 mb-3">
+      <div
+        id="campgroundsCarousel"
+        class="carousel slide"
+        data-bs-ride="carousel"
       >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#campgroundsCarousel"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-      <% } %>
-    </div>
-
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title"><%=camp.title%></h5>
-        <h5 class="card-title text-muted"><%=camp.location%></h5>
-        <p class="card-text"><%=camp.description%></p>
-        <h5 class="card-title text-muted">
-          Submitted by <%=camp.author.username%>
-        </h5>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">$ <%=camp.price%>/ night</li>
-      </ul>
-      <% if(currentUser && camp.author.equals(currentUser._id)){ %>
-      <div class="card-body">
-        <a href="/campgrounds/<%=camp._id%>/edit" class="btn btn-primary"
-          >Edit
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-pencil-square"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+        <div class="carousel-inner">
+          <% camp.images.forEach((img, i)=>{ %>
+          <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+            <img
+              src="<%=img.url%>"
+              class="d-block w-100 img-thumbnail"
+              style="max-width: 700px; max-height: 400px"
+              alt=""
             />
-            <path
-              fill-rule="evenodd"
-              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
-            /></svg
-        ></a>
-        <form
-          class="d-inline"
-          action="/campgrounds/<%=camp._id%>?_method=DELETE"
-          method="POST"
+          </div>
+          <% }) %>
+        </div>
+        <% if(camp.images.length>1){ %>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#campgroundsCarousel"
+          data-bs-slide="prev"
         >
-          <button class="btn btn-danger" type="submit">
-            Delete
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-trash3"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
-              />
-            </svg>
-          </button>
-        </form>
-      </div>
-      <% } %>
-      <div class="card-footer text-muted">2 days ago</div>
-      <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
-    </div>
-  </div>
-  <div class="col-6">
-    <div id="map" style="width: 400px; height: 300px"></div>
-    <% if(currentUser){ %>
-    <h2 class="mt-4 mb-4">Tell Us About Your Experience</h2>
-
-    <form
-      action="/campgrounds/<%=camp._id%>/reviews"
-      method="POST"
-      novalidate
-      class="mb-3 validated-form"
-    >
-      <div class="mb-3">
-        <fieldset class="starability-basic">
-          <input
-            type="radio"
-            id="no-rate"
-            class="input-no-rate"
-            name="review[rating]"
-            value="1"
-            checked
-            aria-label="No rating."
-          />
-          <input
-            type="radio"
-            id="second-rate1"
-            name="review[rating]"
-            value="1"
-          />
-          <label for="second-rate1" title="Terrible">1 star</label>
-          <input
-            type="radio"
-            id="second-rate2"
-            name="review[rating]"
-            value="2"
-          />
-          <label for="second-rate2" title="Not good">2 stars</label>
-          <input
-            type="radio"
-            id="second-rate3"
-            name="review[rating]"
-            value="3"
-          />
-          <label for="second-rate3" title="Average">3 stars</label>
-          <input
-            type="radio"
-            id="second-rate4"
-            name="review[rating]"
-            value="4"
-          />
-          <label for="second-rate4" title="Very good">4 stars</label>
-          <input
-            type="radio"
-            id="second-rate5"
-            name="review[rating]"
-            value="5"
-          />
-          <label for="second-rate5" title="Amazing">5 stars</label>
-        </fieldset>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label" for="body">Review Text:</label>
-        <textarea
-          class="form-control"
-          name="review[body]"
-          id="body"
-          cols="30"
-          rows="3"
-          required
-        ></textarea>
-        <div class="valid-feedback">Looks Good!</div>
-      </div>
-
-      <button class="btn btn-success">Send</button>
-    </form>
-    <% } %><% for(let review of camp.reviews){ %>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-text">Review:</h5>
-        <h6><%=review.body%></h6>
-        <p class="starability-result" data-rating="<%=review.rating%>"></p>
-        <p class="card-title text-muted">By <%=review.author.username %></p>
-
-        <!-- DELETE Request -->
-        <% if(currentUser && review.author.equals(currentUser._id)){%>
-        <form
-          action="/campgrounds/<%=camp._id%>/reviews/<%=review._id%>?_method=DELETE"
-          method="POST"
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#campgroundsCarousel"
+          data-bs-slide="next"
         >
-          <button class="btn btn-sm btn-danger">
-            Remove
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-trash3"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
-              />
-            </svg>
-          </button>
-        </form>
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
         <% } %>
       </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%=camp.title%></h5>
+          <h5 class="card-title text-muted"><%=camp.location%></h5>
+          <p class="card-text"><%=camp.description%></p>
+          <h5 class="card-title text-muted">
+            Submitted by <%=camp.author.username%>
+          </h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">$ <%=camp.price%>/ night</li>
+        </ul>
+        <% if(currentUser && camp.author.equals(currentUser._id)){ %>
+        <div class="card-body">
+          <a href="/campgrounds/<%=camp._id%>/edit" class="btn btn-primary"
+            >Edit
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-pencil-square"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+              /></svg
+          ></a>
+          <form
+            class="d-inline"
+            action="/campgrounds/<%=camp._id%>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-danger" type="submit">
+              Delete
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-trash3"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <% } %>
+        <div class="card-footer text-muted">2 days ago</div>
+        <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
+      </div>
     </div>
-    <% } %>
+    <div class="col-6">
+      <div id="map"></div>
+      <% if(currentUser){ %>
+      <h2 class="mt-4 mb-4">Tell Us About Your Experience</h2>
+
+      <form
+        action="/campgrounds/<%=camp._id%>/reviews"
+        method="POST"
+        novalidate
+        class="mb-3 validated-form"
+      >
+        <div class="mb-3">
+          <fieldset class="starability-basic">
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[rating]"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input
+              type="radio"
+              id="second-rate1"
+              name="review[rating]"
+              value="1"
+            />
+            <label for="second-rate1" title="Terrible">1 star</label>
+            <input
+              type="radio"
+              id="second-rate2"
+              name="review[rating]"
+              value="2"
+            />
+            <label for="second-rate2" title="Not good">2 stars</label>
+            <input
+              type="radio"
+              id="second-rate3"
+              name="review[rating]"
+              value="3"
+            />
+            <label for="second-rate3" title="Average">3 stars</label>
+            <input
+              type="radio"
+              id="second-rate4"
+              name="review[rating]"
+              value="4"
+            />
+            <label for="second-rate4" title="Very good">4 stars</label>
+            <input
+              type="radio"
+              id="second-rate5"
+              name="review[rating]"
+              value="5"
+            />
+            <label for="second-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="body">Review Text:</label>
+          <textarea
+            class="form-control"
+            name="review[body]"
+            id="body"
+            cols="30"
+            rows="3"
+            required
+          ></textarea>
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+
+        <button class="btn btn-success">Send</button>
+      </form>
+      <% } %><% for(let review of camp.reviews){ %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-text">Review:</h5>
+          <h6><%=review.body%></h6>
+          <p class="starability-result" data-rating="<%=review.rating%>"></p>
+          <p class="card-title text-muted">By <%=review.author.username %></p>
+
+          <!-- DELETE Request -->
+          <% if(currentUser && review.author.equals(currentUser._id)){%>
+          <form
+            action="/campgrounds/<%=camp._id%>/reviews/<%=review._id%>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-sm btn-danger">
+              Remove
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-trash3"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                />
+              </svg>
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+    </div>
   </div>
 </div>
 

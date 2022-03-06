@@ -29,6 +29,8 @@ const User = require("./models/user");
 const userRoutes = require("./routes/users");
 const campgroundsRoutes = require("./routes/campground");
 const reviewsRoutes = require("./routes/reviews");
+// npm i express-mongo-sanitize
+const mongoSanitize = require("express-mongo-sanitize");
 
 // Mongo Connection with the DB name
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
@@ -59,6 +61,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 // Render the static files from public directory
 app.use(express.static(path.join(__dirname, "public")));
+// Using Mongo Sanitize to prevent the basics security issues
+app.use(mongoSanitize());
 
 // Cookies Config
 const sessionConfig = {

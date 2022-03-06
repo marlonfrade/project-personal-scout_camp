@@ -15,21 +15,28 @@
     />
 
     <!-- MapBox -->
-
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
       rel="stylesheet"
     />
 
-    <title>Yelpcamp</title>
+    <title>ScoutCamp</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/styles/maps.css" />
+    <link rel="stylesheet" href="/styles/login.css" />
+    <link rel="stylesheet" href="/styles/register.css" />
+    <link rel="stylesheet" href="/styles/camp.css" />
+    <link rel="stylesheet" href="/styles/camps.css" />
+    <!-- FavIcons -->
+    <link rel="shortcut icon" href="/img/favicon.svg" type="image/x-icon" />
   </head>
   <body class="d-flex flex-column vh-100">
     <%-include('../partials/navbar.ejs') %>
-    <main class="container mt-5">
-      <%-include('../partials/flash.ejs') %> <%- body %>
-    </main>
+    <main class=""><%-include('../partials/flash.ejs') %> <%- body %></main>
     <%-include('../partials/footer.ejs') %>
+
+    <!-- BootStrap Script -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
       integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"

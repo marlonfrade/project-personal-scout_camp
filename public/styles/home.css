@@ -1,0 +1,67 @@
+body {
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1603714196939-6f6436c8d0c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-size: cover;
+  background-position: center;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+}
+.cover-container {
+  max-width: 60vw;
+}
+
+.nav-link {
+  padding: 0.25rem 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 1rem;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-link:hover {
+  color: rgba(255, 255, 255, 0.5);
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-link.active {
+  color: white;
+  border-bottom-color: white;
+}
+
+.button {
+  position: relative;
+  margin: auto;
+  padding: 12px 18px;
+  font-size: 25px;
+  transition: all 0.2s ease;
+  color: #fff;
+  text-decoration: none;
+  backdrop-filter: blur(2px) saturate(200%);
+  -webkit-backdrop-filter: blur(2px) saturate(200%);
+  background-color: rgba(17, 25, 40, 0.61);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.button:hover {
+  color: rgb(75, 255, 75);
+  border: 1px solid rgb(75, 255, 75);
+}
+
+.button:hover svg {
+  stroke: rgb(75, 255, 75);
+}
+
+.button svg {
+  position: relative;
+  top: 0;
+  margin-left: 10px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #fff;
+  stroke-width: 2;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}

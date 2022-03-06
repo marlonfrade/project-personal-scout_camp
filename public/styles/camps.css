@@ -1,0 +1,20 @@
+.camps {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#card-index {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* #card-index a {
+  width: 100%;
+} */
+
+#card-index:not(:last-child) {
+  margin-right: 20px;
+}

@@ -15,7 +15,7 @@ module.exports.register = async (req, res, next) => {
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, (err) => {
       if (err) return next(err);
-      req.flash("success", `Welcome to Yelpcamp ${username}`);
+      req.flash("success", `Welcome to ScoutCamp ${username}`);
       res.redirect("/campgrounds");
     });
   } catch (e) {
@@ -33,7 +33,7 @@ module.exports.renderLogin = (req, res) => {
 module.exports.login = (req, res) => {
   // Destructuring the information
   const { email, username, password } = req.body;
-  req.flash("success", `Welcome Back ${username}`);
+  req.flash("success", `Welcome Back, Scout ${username}`);
   //   Redirect user to page that he was or to main page
   const redirectUrl = req.session.returnTo || "/campgrounds";
   //   Then delete it to save a new one
