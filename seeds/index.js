@@ -31,7 +31,7 @@ const seedDB = async () => {
     const camp = new campground({
       // 621f2b982480dcaf99cea32a (marlonfrade PC)
       // 621cc2ce5c3803e5b5824858 (marlonfrade MacOs)
-      author: "621f2b982480dcaf99cea32a",
+      author: "621cc2ce5c3803e5b5824858",
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)} `,
       // Lorem Ipsum to description
