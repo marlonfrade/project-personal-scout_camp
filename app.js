@@ -83,11 +83,11 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 app.use(helmet());
-
+// To use Helmet, you need the config path below, and need to set all the imgs,scripts and styles
+// in the tags with crossorigin="anonymous"(***IMPORTANT***)
 const scriptSrcUrls = [
   "https://stackpath.bootstrapcdn.com/",
   "https://api.tiles.mapbox.com/",
-  "https://api.mapbox.com/",
   "https://api.mapbox.com/",
   "https://kit.fontawesome.com/",
   "https://cdnjs.cloudflare.com/",
@@ -101,6 +101,7 @@ const styleSrcUrls = [
   "https://fonts.googleapis.com/",
   "https://use.fontawesome.com/",
   "https://cdn.jsdelivr.net",
+  "https://stackpath.bootstrapcdn.com/",
 ];
 const connectSrcUrls = [
   "https://api.mapbox.com/",
@@ -122,7 +123,7 @@ app.use(
         "'self'",
         "blob:",
         "data:",
-        "https://res.cloudinary.com/marlonmelo", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
+        "https://res.cloudinary.com/marlonmelo/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
         "https://images.unsplash.com/",
       ],
       fontSrc: ["'self'", ...fontSrcUrls],

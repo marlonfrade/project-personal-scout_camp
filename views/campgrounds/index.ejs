@@ -21,6 +21,7 @@
             src="<%=campground.images[0].url%> "
             width="500"
             height="500"
+            crossorigin="anonymous"
           />
           <% } else {%>
 
@@ -30,6 +31,7 @@
             src=" https://res.cloudinary.com/marlonmelo/image/upload/v1646247986/YelpCamp/siubdsmkz0efoybjtlyg.jpg"
             width="500"
             height="500"
+            crossorigin="anonymous"
           />
           <% } %>
         </div>
@@ -51,9 +53,9 @@
 </div>
 
 <!-- Script to config the access token for MapBox -->
-<script>
+<script crossorigin="anonymous">
   const mapToken = "<%-process.env.MAPBOX_TOKEN%>";
   const campgrounds = {features: <%-JSON.stringify(campgrounds)%>}
 </script>
 
-<script src="/js/clusterMap.js"></script>
+<script src="/js/clusterMap.js" crossorigin="anonymous"></script>
