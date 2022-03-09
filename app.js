@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 console.log(process.env.CLOUDINARY_CLOUD_NAME);
 console.log(process.env.CLOUDINARY_KEY);
 console.log(process.env.CLOUDINARY_SECRET);
+console.log(process.env.DB_URL);
 
 // Required Stuff
 const express = require("express");
@@ -29,13 +30,21 @@ const User = require("./models/user");
 const userRoutes = require("./routes/users");
 const campgroundsRoutes = require("./routes/campground");
 const reviewsRoutes = require("./routes/reviews");
+// npm i connect-mongo
+const MongoDBStore = require("connect-mongo")(session);
 // npm i express-mongo-sanitize
 const mongoSanitize = require("express-mongo-sanitize");
 // npm i helmet
 const helmet = require("helmet");
+// npm i connect-mongo@3.2.0
+const MongoStore = require("connect-mongo");
+// After we create the database to store the application
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
+// Comment below to save our database on the develop mode
+// "mongodb://localhost:27017/yelp-camp"
 
 // Mongo Connection with the DB name
-mongoose.connect("mongodb://localhost:27017/yelp-camp", {
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -66,10 +75,23 @@ app.use(express.static(path.join(__dirname, "public")));
 // Using Mongo Sanitize to prevent the basics security issues
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || "myfirstsecret";
+
+const store = new MongoDBStore({
+  url: dbUrl,
+  secret: secret,
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e);
+});
+
 // Cookies Config
 const sessionConfig = {
+  store: store,
   name: "session",
-  secret: "myfirstsecret",
+  secret: secret,
   resave: false,
   saveUninitialized: true,
   // configurando o cookie

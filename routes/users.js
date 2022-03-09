@@ -16,7 +16,7 @@ const users = require("../controllers/users");
 router.get("/register", users.renderRegister);
 
 // Register POST user
-router.post("/register", isLoggedIn, catchAsync(users.register));
+router.post("/register", catchAsync(users.register));
 
 // Login Form Page
 router.get("/login", users.renderLogin);
