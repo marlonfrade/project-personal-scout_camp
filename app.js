@@ -59,7 +59,7 @@ db.once("open", () => {
 // Execute the express app
 const app = express();
 // Port of the App
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Set the views engine to be rendered
 app.engine("ejs", ejsMate);
