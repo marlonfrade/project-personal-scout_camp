@@ -19,8 +19,7 @@
             class="img-fluid img-thumbnail"
             alt="campground"
             src="<%=campground.images[0].url%> "
-            width="500"
-            height="500"
+            style="min-width: 300px; max-height: 200px"
             crossorigin="anonymous"
           />
           <% } else {%>
@@ -29,8 +28,7 @@
             class="img-fluid img-thumbnail"
             alt="campground"
             src=" https://res.cloudinary.com/marlonmelo/image/upload/v1646247986/YelpCamp/siubdsmkz0efoybjtlyg.jpg"
-            width="500"
-            height="500"
+            style="max-width: 300px; max-height: 200px"
             crossorigin="anonymous"
           />
           <% } %>
@@ -38,10 +36,12 @@
         <div>
           <div class="card-body">
             <h5 class="card-title"><%=campground.title %></h5>
-            <p class="card-text"><%=campground.description%></p>
+            <p class="card-text">
+              <%=campground.description.substring(0,50)%> ...
+            </p>
             <p class="text-muted"><%=campground.location%></p>
             <a class="btn btn-primary" href="/campgrounds/<%=campground._id%> "
-              >View <%=campground.title%></a
+              >View <%=campground.title.substring(0,20)%> ...</a
             >
           </div>
         </div>
