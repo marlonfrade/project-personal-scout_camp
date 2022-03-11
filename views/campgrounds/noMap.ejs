@@ -1,6 +1,10 @@
 <% layout('layouts/boilerplate.ejs') %>
-<div id="cluster-map"></div>
-<!-- <a class="button3" href="/campgrounds/map">Hide Global Map</a> -->
+<div id="hero">
+  <div class="hero__image"></div>
+  <div class="hero__cta">
+    <a href="/campgrounds">View Global Map</a>
+  </div>
+</div>
 <div class="container container--pall">
   <h1 class="mb-5">All Campgrounds</h1>
 
@@ -45,13 +49,6 @@
   </div>
 </div>
 
-<!-- Script to config the access token for MapBox -->
-<script crossorigin="anonymous">
-  const mapToken = "<%-process.env.MAPBOX_TOKEN%>";
-  const campgrounds = {features: <%-JSON.stringify(campgrounds)%>}
-</script>
-
-<script src="/js/clusterMap.js" crossorigin="anonymous"></script>
 <script src="/js/vanilla-tilt.js" crossorigin="anonymous"></script>
 
 <script>

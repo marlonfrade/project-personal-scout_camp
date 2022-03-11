@@ -14,6 +14,10 @@ module.exports.index = async (req, res) => {
   const campgrounds = await campground.find({});
   res.render("campgrounds/index", { campgrounds });
 };
+// Index Page no map of Campgrounds
+module.exports.noMap = async (req, res) => {
+  res.render("campgrounds/noMap");
+};
 
 // New Form to add a campground
 module.exports.newForm = (req, res) => {

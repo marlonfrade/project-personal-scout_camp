@@ -1,0 +1,258 @@
+.header {
+  position: relative;
+  z-index: 1;
+
+  // logo
+  &__logo {
+    width: 10%;
+
+    img {
+      width: 200px;
+      height: 100%;
+      margin-top: 4%;
+    }
+  }
+
+  // Menu Hamburger
+
+  &.open {
+    .header__toggle {
+      > span:first-child {
+        transform: rotate(45deg);
+      }
+
+      > span:nth-child(2) {
+        opacity: 0;
+      }
+
+      > span:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .overlay {
+    opacity: 1;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  nav {
+    position: relative;
+    padding-top: 1.0625rem;
+    padding-bottom: 1.8rem;
+  }
+
+  &__toggle {
+    // Menu Mobile hamburger
+
+    //direct child
+    > span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background-color: $white;
+      transition: all 300ms ease-in-out;
+      transform-origin: 3px 1px;
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    width: calc(100% - 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: $white;
+    margin-top: 1.5rem;
+    padding: 1.625rem;
+    border-radius: 5px;
+
+    a {
+      text-decoration: none;
+      display: block;
+      color: $black;
+      padding: 0.625rem;
+      text-align: center;
+    }
+  }
+
+  &__links {
+    a {
+      text-decoration: none;
+      position: relative;
+      font-size: $font-sm;
+      color: $white;
+      transition: color 300ms ease-in-out;
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 1px;
+        left: 0;
+        right: 0;
+        bottom: -30px;
+
+        opacity: 0;
+        transition: opacity 300ms ease-in-out;
+      }
+
+      &:hover {
+        color: #99a9ff;
+
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+
+    a.active {
+      color: #99a9ff;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  @include breakpoint-up(large) {
+    .button {
+      position: relative;
+      padding: 15px 25px;
+      display: block;
+      text-decoration: none;
+      overflow: hidden;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button span {
+      position: relative;
+      color: #fff;
+      letter-spacing: 4px;
+      z-index: 1;
+    }
+
+    .button .liquid {
+      position: absolute;
+      top: -80px;
+      left: 0;
+      width: 100%;
+      height: 200px;
+
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+      transition: 0.5s;
+    }
+
+    .button .liquid::after,
+    .button .liquid::before {
+      content: "";
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -75%);
+      background: #fff;
+    }
+
+    .button .liquid::before {
+      border-radius: 45%;
+      background: rgba(20, 20, 20, 1);
+      animation: animate 5s linear infinite;
+    }
+
+    .button .liquid::after {
+      border-radius: 40%;
+      background: rgba(20, 20, 20, 0.5);
+      animation: animate 10s linear infinite;
+    }
+
+    .button:hover .liquid {
+      top: -120px;
+      &::after {
+        animation: none;
+      }
+      &::before {
+        animation: none;
+      }
+    }
+  }
+
+  @include breakpoint-down(medium) {
+    .button__mobile {
+      position: relative;
+      padding: 15px 25px;
+      display: block;
+      text-decoration: none;
+      overflow: hidden;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button__mobile span {
+      position: relative;
+      color: #fff;
+      letter-spacing: 4px;
+      z-index: 1;
+    }
+
+    .button__mobile .liquid {
+      position: absolute;
+      top: -80px;
+      left: 0;
+      width: 100%;
+      height: 200px;
+
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+      transition: 0.5s;
+    }
+
+    .button__mobile .liquid::after,
+    .button__mobile .liquid::before {
+      content: "";
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -75%);
+      background: #fff;
+    }
+
+    .button__mobile .liquid::before {
+      border-radius: 45%;
+      background: rgba(20, 20, 20, 1);
+      animation: animate 5s linear infinite;
+    }
+
+    .button__mobile .liquid::after {
+      border-radius: 40%;
+      background: rgba(20, 20, 20, 0.5);
+      animation: animate 10s linear infinite;
+    }
+
+    .button__mobile:hover .liquid {
+      top: -120px;
+      &::after {
+        animation: none;
+      }
+      &::before {
+        animation: none;
+      }
+    }
+  }
+}

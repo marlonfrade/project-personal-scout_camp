@@ -1,0 +1,194 @@
+.feature {
+  text-align: left;
+
+  .divider {
+    width: 100%;
+    margin-bottom: 1.5625rem;
+
+    @include breakpoint-up(large) {
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  &_hide {
+    display: none;
+  }
+
+  @include breakpoint-up(medium) {
+    text-align: left;
+  }
+
+  &__intro {
+    padding: 3%;
+    margin-bottom: 4.75rem;
+
+    @include breakpoint-up(large) {
+      width: 100%;
+    }
+  }
+
+  &__grid {
+    text-align: left;
+
+    @include breakpoint-up(medium) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &__hide {
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  &__item {
+    padding: 0.9375rem;
+
+    @include breakpoint-up(medium) {
+      flex: 0 0 50%;
+    }
+
+    @include breakpoint-up(large) {
+      flex: 1;
+    }
+  }
+
+  &__icon {
+    margin-bottom: 1.875rem;
+
+    @include breakpoint-up(large) {
+      margin-bottom: 2.75rem;
+    }
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.15;
+    color: $white;
+    margin-bottom: 1rem;
+
+    @include breakpoint-up(large) {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__description {
+    color: $white;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .arrow {
+    color: $white;
+    cursor: pointer;
+
+    &_more {
+      transform: rotate(90deg);
+      cursor: pointer;
+    }
+  }
+
+  .drop-content {
+    display: block;
+    padding: 5%;
+
+    &-hide {
+      display: none;
+    }
+  }
+
+  button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  button.learn-more {
+    width: 12rem;
+    height: auto;
+  }
+
+  button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #282936;
+    border-radius: 1.625rem;
+  }
+
+  button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+  }
+
+  button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+  }
+
+  button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+  }
+
+  button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #282936;
+    opacity: 0;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  button:hover .circle {
+    width: 100%;
+  }
+
+  button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+  }
+
+  button:hover .button-text {
+    opacity: 1;
+    color: #fff;
+  }
+}
