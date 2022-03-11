@@ -1,5 +1,11 @@
 <% layout('layouts/boilerplate.ejs') %>
-<div id="cluster-map"></div>
+<section class="hero container container--px">
+  <div cluster-map id="cluster-map"></div>
+  <div BG id="BG" class="hero-image"></div>
+  <button viewMap type="button" class="hero-button button3" id="viewMap">
+    View Global Map
+  </button>
+</section>
 <!-- <a class="button3" href="/campgrounds/map">Hide Global Map</a> -->
 <div class="container container--pall">
   <h1 class="mb-5">All Campgrounds</h1>
@@ -51,6 +57,7 @@
   const campgrounds = {features: <%-JSON.stringify(campgrounds)%>}
 </script>
 
+<script src="/js/mapBtn.js" crossorigin="anonymous"></script>
 <script src="/js/clusterMap.js" crossorigin="anonymous"></script>
 <script src="/js/vanilla-tilt.js" crossorigin="anonymous"></script>
 

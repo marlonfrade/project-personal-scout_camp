@@ -27,14 +27,15 @@
 
     <title>ScoutCamp</title>
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="/styles/maps.css" />
     <link rel="stylesheet" href="/styles/style.css" />
     <!-- FavIcons -->
     <link rel="shortcut icon" href="/img/favicon.svg" type="image/x-icon" />
   </head>
   <body class="d-flex flex-column vh-100">
     <%-include('../partials/navbar.ejs') %>
-    <main class=""><%-include('../partials/flash.ejs') %> <%- body %></main>
+    <main class="container">
+      <%-include('../partials/flash.ejs') %> <%- body %>
+    </main>
     <%-include('../partials/footer.ejs') %>
 
     <!-- BootStrap Script -->

@@ -18,7 +18,6 @@ const upload = multer({ storage });
 // Router = App
 // Campgrounds List Page
 router.get("/", catchAsync(campgrounds.index));
-router.get("/map", catchAsync(campgrounds.noMap));
 
 // Creating a Campground
 router.get("/new", isLoggedIn, campgrounds.newForm);

@@ -2,24 +2,18 @@
 <% layout('layouts/boilerplate.ejs') %>
 <!-- Stars CSS -->
 <link rel="stylesheet" href="/styles/stars.css" />
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-6 mb-3">
+<div class="camp">
+  <div class="flex flex-jc-c flex-ai-c">
+    <div class="camp-content">
       <div
         id="campgroundsCarousel"
-        class="carousel slide"
+        class="carousel slide camp-content-img"
         data-bs-ride="carousel"
       >
         <div class="carousel-inner">
           <% camp.images.forEach((img, i)=>{ %>
           <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-            <img
-              src="<%=img.url%>"
-              class="d-block w-100 img-thumbnail"
-              style="max-width: 700px; max-height: 400px"
-              alt=""
-              crossorigin="anonymous"
-            />
+            <img src="<%=img.url%>" class="" alt="" crossorigin="anonymous" />
           </div>
           <% }) %>
         </div>
@@ -45,22 +39,19 @@
         <% } %>
       </div>
 
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title"><%=camp.title%></h5>
-          <h5 class="card-title text-muted"><%=camp.location%></h5>
-          <p class="card-text"><%=camp.description%></p>
-          <h5 class="card-title text-muted">
-            Submitted by <%=camp.author.username%>
-          </h5>
+      <div class="camp-card">
+        <div class="camp-card-body">
+          <h1><%=camp.title%></h1>
+          <h2><%=camp.location%></h2>
+          <p><%=camp.description%></p>
+          <p>
+            Submitted by <%=camp.author.username%> | $ <%=camp.price%>/ night
+          </p>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">$ <%=camp.price%>/ night</li>
-        </ul>
         <% if(currentUser && camp.author.equals(currentUser._id)){ %>
-        <div class="card-body">
-          <a href="/campgrounds/<%=camp._id%>/edit" class="btn btn-primary"
-            >Edit
+        <div class="camp-card-options">
+          <a class="button3" href="/campgrounds"> Back to Campgrounds</a>
+          <a href="/campgrounds/<%=camp._id%>/edit" class="btn btn-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -83,7 +74,6 @@
             method="POST"
           >
             <button class="btn btn-danger" type="submit">
-              Delete
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -100,11 +90,9 @@
           </form>
         </div>
         <% } %>
-        <div class="card-footer text-muted">2 days ago</div>
-        <a class="btn btn-primary" href="/campgrounds"> Back to Campgrounds</a>
       </div>
     </div>
-    <div class="col-6">
+    <div>
       <div id="map"></div>
       <% if(currentUser){ %>
       <h2 class="mt-4 mb-4">Tell Us About Your Experience</h2>

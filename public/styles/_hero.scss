@@ -1,23 +1,14 @@
 .hero {
-  .container {
-    @include breakpoint-up(large) {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  .container_hide {
-    display: none;
-  }
-
-  .image {
+  margin-bottom: 100px;
+  &-image {
     position: relative;
-    background-image: url("/img/hero_BG.png");
+    background-image: url("/img/BG2.png");
     width: 100%;
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center center;
-    min-height: 11rem;
+    min-height: 20rem;
+    transition: all 300ms ease-in-out;
 
     @include breakpoint-up(medium) {
       min-height: 25rem;
@@ -25,250 +16,27 @@
     }
 
     @include breakpoint-up(large) {
-      flex: 3;
-      order: 2;
-      height: 35rem;
-      background-image: none;
-    }
-
-    &::before {
-      @include breakpoint-up(large) {
-        content: "";
-        position: absolute;
-        height: 100%;
-        background-image: url("/img/hero_BG.png");
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 150%;
-        background-size: 66.7%;
-        background-position: 0% 60%;
-      }
+      max-width: 105.375rem;
+      position: absolute;
+      z-index: 1000;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 52rem;
+      background-image: url("/img/BG2.png");
+      background-size: cover;
+      background-position: center bottom;
     }
   }
 
-  .apresentation {
-    position: relative;
-    background-image: url(/public/img/presentationBG.jpg);
-    width: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 11rem;
-
-    @include breakpoint-up(medium) {
-      min-height: 25rem;
-      background-position: center 0%;
-    }
-
-    @include breakpoint-up(large) {
-      flex: 3;
-      order: 2;
-      height: 35rem;
-      background-image: none;
-    }
-
-    &::before {
-      @include breakpoint-up(large) {
-        content: "";
-        position: absolute;
-        height: 100%;
-        background-image: url(/public/img/presentationBG.jpg);
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 150%;
-        background-size: 66.7%;
-        background-position: 0% 60%;
-      }
-    }
-  }
-
-  .lgpd {
-    position: relative;
-    background-image: url(/public/img/aboutBG.jpg);
-    width: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 11rem;
-
-    @include breakpoint-up(medium) {
-      min-height: 25rem;
-      background-position: center 0%;
-    }
-
-    @include breakpoint-up(large) {
-      flex: 3;
-      order: 2;
-      height: 35rem;
-      background-image: none;
-    }
-
-    &::before {
-      @include breakpoint-up(large) {
-        content: "";
-        position: absolute;
-        height: 100%;
-        background-image: url(/public/img/aboutBG.jpg);
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 150%;
-        background-size: 66.7%;
-        background-position: 0% 60%;
-      }
-    }
-  }
-
-  .privacy {
-    position: relative;
-    background-image: url(/public/img/privacyBG.jpg);
-    width: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 11rem;
-
-    @include breakpoint-up(medium) {
-      min-height: 25rem;
-      background-position: center 0%;
-    }
-
-    @include breakpoint-up(large) {
-      flex: 3;
-      order: 2;
-      height: 35rem;
-      background-image: none;
-    }
-
-    &::before {
-      @include breakpoint-up(large) {
-        content: "";
-        position: absolute;
-        height: 100%;
-        background-image: url(/public/img/privacyBG.jpg);
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 150%;
-        background-size: 66.7%;
-        background-position: 0% 60%;
-      }
-    }
-  }
-
-  .security {
-    position: relative;
-    background-image: url(/public/img/securityBG.jpg);
-    width: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 11rem;
-
-    @include breakpoint-up(medium) {
-      min-height: 25rem;
-      background-position: center 0%;
-    }
-
-    @include breakpoint-up(large) {
-      flex: 3;
-      order: 2;
-      height: 35rem;
-      background-image: none;
-    }
-
-    &::before {
-      @include breakpoint-up(large) {
-        content: "";
-        position: absolute;
-        height: 100%;
-        background-image: url(/public/img/securityBG.jpg);
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 150%;
-        background-size: 66.7%;
-        background-position: 0% 60%;
-      }
-    }
-  }
-
-  .charge {
-    position: relative;
-    background-image: url(/public/img/inChargedBG.jpg);
-    width: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 11rem;
-
-    @include breakpoint-up(medium) {
-      min-height: 25rem;
-      background-position: center 0%;
-    }
-
-    @include breakpoint-up(large) {
-      flex: 3;
-      order: 2;
-      height: 35rem;
-      background-image: none;
-    }
-
-    &::before {
-      @include breakpoint-up(large) {
-        content: "";
-        position: absolute;
-        height: 100%;
-        background-image: url(/public/img/inChargedBG.jpg);
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 150%;
-        background-size: 66.7%;
-        background-position: 0% 60%;
-      }
-    }
-  }
-
-  .contact {
-    position: relative;
-    background-image: url(/public/img/contactBG.jpg);
-    width: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 11rem;
-
-    @include breakpoint-up(medium) {
-      min-height: 25rem;
-      background-position: center 0%;
-    }
-
-    @include breakpoint-up(large) {
-      flex: 3;
-      order: 2;
-      height: 35rem;
-      background-image: none;
-    }
-
-    &::before {
-      @include breakpoint-up(large) {
-        content: "";
-        position: absolute;
-        height: 100%;
-        background-image: url(/public/img/contactBG.jpg);
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        width: 150%;
-        background-size: 66.7%;
-        background-position: 0% 60%;
-      }
-    }
-  }
-
-  &__text {
-    text-align: center;
-
-    @include breakpoint-up(large) {
-      flex: 2;
-      order: 1;
-      text-align: left;
-    }
+  &-button {
+    z-index: 1000000;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 40%;
   }
 }
