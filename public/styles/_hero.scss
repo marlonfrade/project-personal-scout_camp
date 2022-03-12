@@ -37,6 +37,10 @@
     align-items: center;
     left: 50%;
     transform: translateX(-50%);
-    top: 40%;
+    top: 400px;
+
+    @include breakpoint-down(medium) {
+      display: none;
+    }
   }
 }

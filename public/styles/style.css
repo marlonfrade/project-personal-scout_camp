@@ -397,8 +397,8 @@ a:hover {
   margin: 20px 40px;
 }
 
-.camp-content-image img {
-  width: 100%;
+.camp-content img {
+  width: 400px;
 }
 
 .camp-card {
@@ -731,7 +731,13 @@ a:hover {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  top: 40%;
+  top: 400px;
+}
+
+@media (max-width: 68.75em) {
+  .hero-button {
+    display: none;
+  }
 }
 
 .feature {
