@@ -397,10 +397,6 @@ a:hover {
   margin: 20px 40px;
 }
 
-.camp-content img {
-  width: 400px;
-}
-
 .camp-card {
   background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#bababa));
   background: linear-gradient(to bottom, #fafafa, #bababa);
@@ -1121,8 +1117,8 @@ a:hover {
 }
 
 .containerCard .card:hover {
-  -webkit-box-shadow: 8px 8px 30px #fafafa;
-          box-shadow: 8px 8px 30px #fafafa;
+  -webkit-box-shadow: 4px 4px 10px #fafafa;
+          box-shadow: 4px 4px 10px #fafafa;
 }
 
 .containerCard .card .content {
